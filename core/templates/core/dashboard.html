@@ -1,0 +1,36 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <h2 class="text-3xl font-bold text-gray-800 mb-6 border-b-2 border-gray-400 pb-2">Dashboard</h2>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+
+        {% if permissions.company_management > 0 %}
+        <a href="#" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+            <div class="flex flex-col items-center text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-factory text-teal-500 mb-4"><path d="M12 16h.01"/><path d="M16 16h.01"/><path d="M3 19a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5a.5.5 0 0 0-.769-.422l-4.462 2.844A.5.5 0 0 1 15 10.5v-2a.5.5 0 0 0-.769-.422L9.77 10.922A.5.5 0 0 1 9 10.5V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2z"/><path d="M8 16h.01"/></svg>
+                <h3 class="text-xl font-semibold text-gray-800">Gestión de Empresas</h3>
+                <p class="text-gray-500 text-sm mt-1">{%if permissions.company_management == 1 %}Sólo vista{% else %}Lectura y escritura{% endif %}</p>
+            </div>
+        </a>
+        {% endif %}
+
+        {% if permissions.user_management > 0 %}
+        <a href="#" class="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1">
+            <div class="flex flex-col items-center text-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-users text-blue-500 mb-4"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"></svg>
+                <h3 class="text-xl font-semibold text-gray-800">Gestión de Funcionarios</h3>
+                <p class="text-gray-500 text-sm mt-1">{%if permissions.user_management == 1 %}Sólo vista{% else %}Lectura y escritura{% endif %}</p>
+            </div>
+        </a>
+        {% endif %}
+
+        {% if permissions.user_management == 0 and permissions.company_management == 0 %}
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-md mt-8">
+                <h4 class="font-bold">No tienes permisos asignados</h4>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
